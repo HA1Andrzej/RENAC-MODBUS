@@ -4,4 +4,4 @@ I plan to develop a modbus interface with the RENAC inverter. I have the R3-5K-D
 
 I am looking for people who own Renac inverters and want to make/test such communication with HA.
 
-Do you know how to make such communication? Please contact me. I think that together we can make it possible! 
+Do you know how to make such communication (Using ESPHOME?)? Please contact me. I think that together we can make it possible! 
