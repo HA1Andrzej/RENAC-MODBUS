@@ -3,12 +3,18 @@
 > [!IMPORTANT]
 > The code is just running, there may be problems!
 
-I tested and it works - it reads data from the RENAC R3-5K-DT inverter
-
-**Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!**
+##**Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!**
 
 I used the example of communications [htvekov/solivia_esphom](https://github.com/htvekov/solivia_esphome)
 
+**Supported devices** 
+---
+Renac inverters
+
+R3-5K-DT (confirmed)
+
+**Description**
+---
 The package request command can instead easily be send from ESPHome using ```uart.write``` and e.g. triggered via the ESPHome Time component.
 
 Example: 
