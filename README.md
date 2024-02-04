@@ -12,6 +12,12 @@ I used the example of communications [htvekov/solivia_esphom](https://github.com
 Renac inverters
 
 R3-5K-DT (confirmed)
+R3-4K-DT
+R3-6K-DT
+R3-8K-DT
+R3-10K-DT
+R3-12K-DT
+R3-15K-DT
 
 **Communication example**
 ---
