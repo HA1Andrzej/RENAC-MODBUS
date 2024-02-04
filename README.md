@@ -5,6 +5,8 @@
 
 Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!
 
+I used the example of communications [htvekov/solivia_esphom](https://github.com/htvekov/solivia_esphome)
+
 The package request command can instead easily be send from ESPHome using ```uart.write``` and e.g. triggered via the ESPHome Time component.
 
 Example: 
