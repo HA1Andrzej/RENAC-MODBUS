@@ -1,5 +1,8 @@
 # RENAC-MODBUS
 
+> [!IMPORTANT]
+> The code is just running, there may be problems!
+
 Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!
 
 The package request command can instead easily be send from ESPHome using ```uart.write``` and e.g. triggered via the ESPHome Time component.
