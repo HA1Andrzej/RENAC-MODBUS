@@ -156,3 +156,5 @@ This repository contains files for demonstration purposes only. Use the files on
 Thanks for helping me out with this project
 ---
 Thanks to the team from "Zepsuj to sam" and Krzysztof Zwierzak. 
+
+Additional thanks to RenacPower and AiD Solar for their support 
