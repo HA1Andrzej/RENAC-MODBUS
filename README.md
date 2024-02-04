@@ -3,6 +3,8 @@
 > [!IMPORTANT]
 > The code is just running, there may be problems!
 
+I tested and it works - it reads data from the RENAC R3-5K-DT inverter
+
 **Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!**
 
 I used the example of communications [htvekov/solivia_esphom](https://github.com/htvekov/solivia_esphome)
