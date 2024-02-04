@@ -1,7 +1,5 @@
 # RENAC-MODBUS
 
-I plan to develop a modbus interface with the RENAC inverter (RS485). I have the R3-5K-DT model. I found the modbus documentation  https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/RenacPower_On-Grid%20Inverter%20Modbus%20Protocol%20V0.02.pdf
+Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!
 
-I am looking for people who own Renac inverters and want to make/test such communication with HA.
-
-Do you know how to make such communication (Using ESPHOME)? Please contact me. I think that together we can make it possible! 
+Komunikacja z falownikiem odbywa sie za pomocą komendy "uart.write"
