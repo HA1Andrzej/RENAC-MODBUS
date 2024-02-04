@@ -21,7 +21,7 @@ time:
 
 ```
 
-💡 A list of all Renac inverters registers and the communication protocol is now finally publicly available and can be found here.
+💡 A list of all Renac inverters registers and the communication protocol is now finally publicly available and can be found [here](https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/RenacPower_On-Grid%20Inverter%20Modbus%20Protocol%20V0.02.pdf).
 
 I've tested on ESP32 with hardware UART. I experience minor ESPHome <--> Home Assistant connection issues using the ESP32 software UART. So I've revised my production config to use the hardware UART pins instead. This is rock solid. But remember to turn off debug communication on the UART pins.
 
