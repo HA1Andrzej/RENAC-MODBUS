@@ -1,7 +1,7 @@
 # RENAC-MODBUS
 
 > [!IMPORTANT]
-> The code is just running, there may be problems!
+> The code is just running, there may be problems! Do you have a Renac, want to help with software development? Write to me! 
 
 ##**Remember to copy the Custom Component renac.h file to the ESPHome folder in Home Assistant !!**
 
