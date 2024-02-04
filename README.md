@@ -32,6 +32,9 @@ R3-15K-DT
 ---
 ![Komunikacja](https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/przyklad%20komunikacji.png)
 
+**Installation**
+---
+
 **Description**
 ---
 The package request command can instead easily be send from ESPHome using ```uart.write``` and e.g. triggered via the ESPHome Time component.
