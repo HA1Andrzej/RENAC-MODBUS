@@ -35,6 +35,14 @@ R3-15K-DT
 **Installation**
 ---
 
+According to the instructions, let's connect the wires to the COM port pins 3 and 4 (important! if the inverter has a separate rs485 socket, do not connect to it)
+![instrukcja](https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/images/renac%20modbus%20A%20B.png)
+
+Schematic of the connection of ESP and TTL converter 
+
+![Schemat esp](https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/images/renac%20schemat%20esp.png)
+
+
 **Description**
 ---
 The package request command can instead easily be send from ESPHome using ```uart.write``` and e.g. triggered via the ESPHome Time component.
