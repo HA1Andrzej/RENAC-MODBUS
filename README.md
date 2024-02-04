@@ -152,3 +152,7 @@ Disclaimer
 ---
 
 This repository contains files for demonstration purposes only. Use the files on your own risk. I am not responsible for any damage!
+
+Thanks for helping me out with this project
+---
+Thanks to the team from "Zepsuj to sam" and Krzysztof Zwierzak. 
