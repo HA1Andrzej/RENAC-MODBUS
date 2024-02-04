@@ -147,3 +147,8 @@ FC 18 		- BoostMax temp /10
 
 58 0D		- CRC
 ```
+
+Disclaimer
+---
+
+This repository contains files for demonstration purposes only. Use the files on your own risk. I am not responsible for any damage!
