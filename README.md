@@ -79,10 +79,10 @@ Analyzing the package, we were able to read the following data:
 
 ```
 01 	- slave adres
-65 	- kod funkcji
+65 	- function code
 04 	- 
-29 04 	- start 1 rejestru "10500" 
-46 	- ilość rejestrów 1 "106"
+29 04 	- start 1 register "10500" 
+46 	- number of registers 1 "106"
 00 02 	- Operating mode tab. 2.4.2 "normal" 
 00 0C 	- tab. 2.4.8 "Poland"
 00 01 	- MPTT "Independent"
@@ -90,7 +90,7 @@ Analyzing the package, we were able to read the following data:
 00 00	- NA
 00 00   - NA
 00 00   - NA
-00 01	- kWh / 10 dzienne 
+00 01	- kWh/10 daily production 
 00 00 	- 
 00 02 12 D1 - total power  /10
 00 00 00 00
@@ -114,7 +114,7 @@ Analyzing the package, we were able to read the following data:
 
 29 CC 	- jump to 10700 
 
-20 	- kolejne 32 rejestry
+20 	- another 32 registers
 
 00 00 00 00
 00 00 00 00
@@ -127,9 +127,9 @@ Analyzing the package, we were able to read the following data:
 
 2A 30 	- jump to 10800 
 
-22 	- kolejne 34 rejestry
+22 	- another 34 registers
 
-00 02	- ilość stringów ?
+00 02	- number of strings
 
 0B 0C 		- PV1 voltage /10 "282.8"
 00 02 		- PV1 current /10 "0.2"
@@ -149,7 +149,7 @@ Analyzing the package, we were able to read the following data:
 
 2E E0 		- jump to 12000
 
-0C		- kolejne 12 rejestró 
+0C		- another 12 registers
 
 01 6F 		- heat sink temp /10 "36.7"
 01 6F 		- ambient temp /10 "36.7 "
