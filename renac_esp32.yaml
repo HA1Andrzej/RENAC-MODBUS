@@ -1,0 +1,270 @@
+substitutions:
+  friendly_name: "R3-5K-DT"
+
+
+esphome:
+  name: renac-modbus
+  friendly_name: Renac-modbus
+  includes:
+    - renac.h
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino  
+  
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "cccccccccccccccccccccccccccccccccccccE="
+
+ota:
+  password: "cccccccccccccccccccccccccccccccccccccccc"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 10.0.0.59 ######## ip que quieras usar
+    gateway: 10.0.0.1
+    subnet: 255.0.0.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Renac-Modbus Fallback Hotspot"
+    password: "oMyaMkoA2PUG"
+
+captive_portal:
+
+web_server:
+  port: 80
+
+# Remove hash signs and activate, if you don't have a Solivia gataway.
+# With this you emulate the gateways request for data response from the inverter.
+# With settings below, the requests are send every 10 seconds.
+#
+time:
+  - platform: homeassistant
+    id: esptime
+  - platform: sntp
+    on_time:
+       # Request package every 10 seconds from inverter at slave address: 0x01
+      - seconds: 1/8
+        then:
+          - uart.write: [0x01, 0x65, 0x04, 0x29, 0x04, 0x00, 0x1B, 0x29, 0xCC, 0x00, 0x10, 0x2A, 0x30, 0x00, 0x11, 0x2E, 0xE0, 0x00, 0x06, 0xFF, 0xD7]
+
+
+binary_sensor:
+  - platform: status
+    name: "Renac Node Status"
+    id: renac_status
+ 
+uart:
+  id: mod_bus
+  tx_pin: 17 # Typical tx pin for hardware UART#2 on ESP32 modules
+  rx_pin: 16 # Typical rx pin for hardware UART#2 on ESP32 modules
+  rx_buffer_size: 1024
+  baud_rate: 9600
+  parity: NONE
+  stop_bits: 1
+  debug:
+
+sensor:
+
+# Uptime sensor / WiFi strength in db and percentage
+- platform: uptime
+  name: "Uptime sensor"
+
+- platform: wifi_signal
+  id: renac_wifi_strength_db
+  name: "WiFi strength db"
+  update_interval: 60s
+  entity_category: "diagnostic"
+
+- platform: copy # Reports the WiFi signal strength in %
+  source_id: renac_wifi_strength_db
+  name: "WiFi strength pct."
+  filters:
+    - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+  unit_of_measurement: "%"
+  entity_category: "diagnostic"
+
+
+- platform: custom
+  lambda: |-
+    auto delta = new renac(id(mod_bus));
+    App.register_component(delta);
+    return {delta->pv1_voltage, delta->pv1_current, delta->pv1_power, delta->pv2_voltage, delta->pv2_current, delta->pv2_power, delta->pv_d_yield, delta->total_power, delta->R_phase_grid_voltage, delta->R_phase_grid_current, delta->R_phase_grid_frequency, delta->T_phase_grid_voltage, delta->T_phase_grid_current, delta->T_phase_grid_frequency, delta->S_phase_grid_voltage, delta->S_phase_grid_current, delta->S_phase_grid_frequency, delta->heat_sink_temp, delta->ambient_temp,};
+  sensors:
+  - name: "${friendly_name} PV1 voltage"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: V
+    accuracy_decimals: 0
+    # Frequent update, as sensor is used to calculate consumption with iem3155 sensor.total_active_power
+    filters:
+    - throttle: 10s 
+    - multiply: 0.1
+  
+  - name: "${friendly_name} PV1 current"
+    device_class: energy
+    # Set state_class in order for HA to use sensor in the Energy component
+    unit_of_measurement: A
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+  
+  - name: "${friendly_name} PV1 power"
+    device_class: energy
+    unit_of_measurement: W
+    accuracy_decimals: 0
+    filters:
+    - throttle: 10s
+    - multiply: 1
+  
+  - name: "${friendly_name} PV2 voltage"
+    device_class: energy
+    unit_of_measurement: V
+    accuracy_decimals: 0
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+  
+  - name: "${friendly_name} PV2 current"
+    device_class: energy
+    unit_of_measurement: A
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+  
+  - name: "${friendly_name} PV2 power"
+    device_class: energy
+    unit_of_measurement: W
+    accuracy_decimals: 0
+    filters:
+    - throttle: 10s
+    - multiply: 1
+
+  - name: "${friendly_name} Daily production"
+    device_class: energy
+    unit_of_measurement: kWh
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} Total PV Energy"
+    device_class: energy
+    unit_of_measurement: kWh
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} R phase voltage"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: V
+    accuracy_decimals: 0
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} R phase current"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: A
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} R phase frequency"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: Hz
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.01
+
+  - name: "${friendly_name} T phase voltage"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: V
+    accuracy_decimals: 0
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} T phase current"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: A
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} T phase frequency"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: Hz
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.01
+
+  - name: "${friendly_name} S phase voltage"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: V
+    accuracy_decimals: 0
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} S phase current"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: A
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} S phase frequency"
+    icon: mdi:power-plug
+    device_class: energy
+    unit_of_measurement: Hz
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.01
+
+  - name: "${friendly_name} Heat sink temp"
+    device_class: temperature
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+  - name: "${friendly_name} Ambient temp"
+    device_class: temperature
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    filters:
+    - throttle: 10s
+    - multiply: 0.1
+
+switch:
+################################################ Restart ESP ############################################
+  - platform: restart
+    name: "modbus Restart"
