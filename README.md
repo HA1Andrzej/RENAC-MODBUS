@@ -11,6 +11,9 @@ I used the example of communications [htvekov/solivia_esphom](https://github.com
 ---
 Renac inverters
 
+![logo](https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/images/RENAC%20LOGO.jpg)
+
+
 R3-5K-DT (confirmed)
 
 R3-4K-DT
