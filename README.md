@@ -42,6 +42,8 @@ Schematic of the connection of ESP and TTL converter
 
 ![Schemat esp](https://github.com/HA1Andrzej/RENAC-MODBUS/blob/main/images/renac%20schemat%20esp.png)
 
+1. Copy the Custom Component renac.h file to the ESPHome folder in Home Assistant
+2. Copy the code from renac_esp32.yaml to your esp32. 
 
 **Description**
 ---
